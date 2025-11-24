@@ -15,7 +15,7 @@
 						]
 					},
 					{
-						"activity": "current",
+						"activity": "current_timestamp",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -70,7 +70,14 @@
 						"type": "DatasetReference",
 						"parameters": {
 							"containers": "bronze",
-							"folder": "monitor"
+							"folder": {
+								"value": "users",
+								"type": "Expression"
+							},
+							"file": {
+								"value": "@concat(pipeline().parameters.table,'_',variables('current'))",
+								"type": "Expression"
+							}
 						}
 					}
 				]
@@ -112,7 +119,7 @@
 				}
 			},
 			{
-				"name": "current",
+				"name": "current_timestamp",
 				"type": "SetVariable",
 				"dependsOn": [],
 				"policy": {
